@@ -9,10 +9,10 @@ interface CardProps {
 export default function Card(props: CardProps) {
   const { name } = props;
 
-  const [isTextAreaOpen, setIsTextAreaOpen] = useState(false);
-  const [newTaskValue, setNewTaskValue] = useState('');
+  const [isTextAreaOpen, setIsTextAreaOpen] = useState<boolean>(false);
+  const [newTaskValue, setNewTaskValue] = useState<string>('');
   const [tasks, setTasks] = useState<string[]>([]);
-
+  
   const handleAddNewTaskClick = () => {
     if (isTextAreaOpen) {
       if (!newTaskValue) return;
@@ -20,17 +20,19 @@ export default function Card(props: CardProps) {
       setNewTaskValue('');
     }
     setIsTextAreaOpen(!isTextAreaOpen);
-
   };
 
   return (
-    <div className='flex flex-col bg-slate-300 p-5 rounded-md min-w-[300px]'>
-      <div className='font-semibold'>
-        {name}  
-      </div>
+    <div className='flex flex-col bg-slate-300 p-5 rounded-md w-[350px]'>
+      <div className='font-semibold'>{name}</div>
       <ul className='py-3'>
         {tasks.map((task) => (
-          <li className='py-1' key={task}>{task}</li>
+          <li
+            className='py-1 hover:rounded-md hover:bg-slate-200 hover:pl-1'
+            key={task}
+          >
+            {task}
+          </li>
         ))}
       </ul>
       {isTextAreaOpen && (
