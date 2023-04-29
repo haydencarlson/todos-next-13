@@ -6,7 +6,6 @@ export default function Page() {
       <Card name='To Do' />
       <Card name='In Progress' />
       <Card name='Completed' />
-      <Card name='Not Doing' />
     </main>
   );
 }
