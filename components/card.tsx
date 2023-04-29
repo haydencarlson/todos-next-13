@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-
+import CardItem from './carditem';
 interface CardProps {
   name: string;
 }
@@ -12,7 +12,7 @@ export default function Card(props: CardProps) {
   const [isTextAreaOpen, setIsTextAreaOpen] = useState<boolean>(false);
   const [newTaskValue, setNewTaskValue] = useState<string>('');
   const [tasks, setTasks] = useState<string[]>([]);
-  
+
   const handleAddNewTaskClick = () => {
     if (isTextAreaOpen) {
       if (!newTaskValue) return;
@@ -22,17 +22,23 @@ export default function Card(props: CardProps) {
     setIsTextAreaOpen(!isTextAreaOpen);
   };
 
+  const handleItemEditSubmit = (taskIndex: number, newTask: string) => {
+    const newTasks = [...tasks];
+    newTasks[taskIndex] = newTask;
+    setTasks([...newTasks]);
+  };
+
   return (
     <div className='flex flex-col bg-slate-300 p-5 rounded-md w-[350px]'>
       <div className='font-semibold'>{name}</div>
       <ul className='py-3'>
-        {tasks.map((task) => (
-          <li
-            className='py-1 hover:rounded-md hover:bg-slate-200 hover:pl-1'
+        {tasks.map((task, i) => (
+          <CardItem
             key={task}
-          >
-            {task}
-          </li>
+            task={task}
+            taskIndex={i}
+            onItemSubmit={handleItemEditSubmit}
+          />
         ))}
       </ul>
       {isTextAreaOpen && (
