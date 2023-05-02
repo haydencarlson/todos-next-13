@@ -20,17 +20,17 @@ export default React.memo(function CardItem(props: CardItemProps) {
     setIsEditTaskModalOpen(true);
   };
 
-  const handleItemSubmit = useCallback(() => {
+  const handleItemSubmit = () => {
     onItemSubmit(taskIndex, newTaskValue);
     setIsEditTaskModalOpen(false);
-  }, [taskIndex, newTaskValue, onItemSubmit]);
+  };
 
   return (
     <>
       <li
+        key={task}
         onClick={handleTaskClick}
         className='py-1 hover:rounded-md hover:bg-slate-200 hover:pl-1'
-        key={task}
       >
         {task}
       </li>
