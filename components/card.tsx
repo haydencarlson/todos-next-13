@@ -25,7 +25,13 @@ export default function Card(props: CardProps) {
   const handleItemEditSubmit = (taskIndex: number, newTask: string) => {
     const newTasks = [...tasks];
     newTasks[taskIndex] = newTask;
-    setTasks([...newTasks]);
+    setTasks(newTasks);
+  };
+
+  const handleItemDelete = (taskIndex: number) => {
+    const newTasks = [...tasks];
+    newTasks.splice(taskIndex, 1);
+    setTasks(newTasks);
   };
 
   return (
@@ -34,10 +40,11 @@ export default function Card(props: CardProps) {
       <ul className='py-3'>
         {tasks.map((task, i) => (
           <CardItem
-            key={task}
+            key={`${task}-${i}`}
             task={task}
             taskIndex={i}
             onItemSubmit={handleItemEditSubmit}
+            onItemDelete={handleItemDelete}
           />
         ))}
       </ul>
