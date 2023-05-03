@@ -1,15 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import { TextInput } from 'flowbite-react';
 import Modal from './modal';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 interface CardItemProps {
   task: string;
   taskIndex: number;
   onItemSubmit: (taskIndex: number, newTaskValue: string) => void;
+  onItemDelete: (taskIndex: number) => void;
 }
 
 export default React.memo(function CardItem(props: CardItemProps) {
-  const { task, taskIndex, onItemSubmit } = props;
+  const { task, taskIndex, onItemSubmit, onItemDelete } = props;
 
   const [newTaskValue, setNewTaskValue] = useState<string>(task);
 
@@ -25,15 +27,23 @@ export default React.memo(function CardItem(props: CardItemProps) {
     setIsEditTaskModalOpen(false);
   };
 
+  const handleItemDelete = () => {
+    onItemDelete(taskIndex);
+  };
+
   return (
     <>
       <li
         key={task}
         onClick={handleTaskClick}
-        className='py-1 hover:rounded-md hover:bg-slate-200 hover:pl-1'
+        className='group flex items-center justify-between py-1 hover:rounded-md hover:bg-slate-200 pl-1 pr-1'
       >
-        {task}
+        <div>{task}</div>
+        <button className='hidden group-hover:block' onClick={handleItemDelete}>
+          <BsFillTrashFill />
+        </button>
       </li>
+
       {isEditTaskModalOpen && (
         <Modal
           header='Edit task'
