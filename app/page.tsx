@@ -19,10 +19,10 @@ export default async function Home() {
   return (
     <main className='flex items-start justify-center gap-10 p-24'>
       {cards.map((card) => (
-        <>
+        <div key={card.id}>
           {/* @ts-expect-error Async Server Component */}
-          <Card key={card.id} {...card} />
-        </>
+          <Card {...card} />
+        </div>
       ))}
       {!userId && (
         <div className='flex flex-col items-center text-lg'>
