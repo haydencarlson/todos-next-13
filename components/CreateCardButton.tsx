@@ -21,6 +21,7 @@ export default function CreateCardButton() {
       body: JSON.stringify({ title: newCardTitle }),
     });
     router.refresh();
+    setIsLoading(false);
     setIsNewCardModalOpen(false);
   };
 

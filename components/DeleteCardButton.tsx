@@ -23,6 +23,7 @@ export default function DeleteCardButton({ id }: DeleteCardButtonProps) {
       },
       body: JSON.stringify({ id }),
     });
+    setIsLoading(false);
     router.refresh();
   };
 
