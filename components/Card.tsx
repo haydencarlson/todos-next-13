@@ -29,9 +29,9 @@ export default async function Card(props: CardProps) {
         <DeleteCardButton id={id} />
       </div>
       <ul className='py-3'>
-        {items.map((item, i) => (
+        {items.map((item) => (
           <CardItem
-            key={`${item}-${i}`}
+            key={item.id}
             {...item}
           />
         ))}

@@ -9,8 +9,10 @@ export default function CreateCardButton() {
   
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const createNewCard = async () => {
+    setIsLoading(true);
     await fetch('/api/cards', {
       method: 'POST',
       headers: {
@@ -35,6 +37,7 @@ export default function CreateCardButton() {
         <Modal
           header='Create a new task card'
           submitText='Create card'
+          isLoading={isLoading}
           onClose={() => setIsNewCardModalOpen(false)}
           onSubmit={createNewCard}
         >

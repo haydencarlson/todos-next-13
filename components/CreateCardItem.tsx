@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FaSpinner } from 'react-icons/fa';
 
 interface CreateCardItemProps {
   cardId: string;
@@ -12,8 +13,10 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
 
   const [isTextAreaOpen, setIsTextAreaOpen] = useState<boolean>(false);
   const [newTaskValue, setNewTaskValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCreateTaskClick = async () => {
+    setIsLoading(true);
     await fetch('/api/card_items', {
       method: 'POST',
       body: JSON.stringify({
@@ -22,6 +25,8 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
       }),
     });
     router.refresh();
+    setIsLoading(false);
+    setIsTextAreaOpen(false);
     setNewTaskValue('');
   };
 
@@ -43,9 +48,9 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
         <div className='flex'>
           <button
             onClick={handleCreateTaskClick}
-            className='w-full text-white bg-blue-700 mt-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+            className='w-full flex justify-center items-center text-white bg-blue-700 mt-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
           >
-            Create task
+            {isLoading ? <FaSpinner className='animate-spin'/> : 'Create task'}
           </button>
           <button
             onClick={() => setIsTextAreaOpen(false)}
