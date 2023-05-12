@@ -1,11 +1,28 @@
-import Card from '@/components/card';
+import Card from '@/components/Card';
+import { prisma } from '@/prisma/db';
+import { auth } from '@clerk/nextjs';
 
-export default function Page() {
+const getCards = async () => {
+  const { userId } = auth();
+  const cards = await prisma.card.findMany({
+    where: {
+      clerkUserId: userId,
+    }
+  });
+  return cards;
+};
+
+export default async function Home() {
+  const cards = await getCards();
+
   return (
     <main className='flex items-start justify-center gap-10 p-24'>
-      <Card name='To Do' />
-      <Card name='In Progress' />
-      <Card name='Completed' />
+      {cards.map((card) => (
+        <>
+          {/* @ts-expect-error Async Server Component */}
+          <Card key={card.id} {...card} />
+        </>
+      ))}
     </main>
   );
 }

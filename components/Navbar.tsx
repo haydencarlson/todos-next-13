@@ -1,15 +1,15 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SignInButton } from '@clerk/nextjs';
-import { UserButton, SignedIn, SignedOut } from '@clerk/nextjs/app-beta/client';
-import Modal from './modal';
+import {
+  SignInButton,
+  UserButton,
+  SignedIn,
+  SignedOut
+} from '@clerk/nextjs';
+import CreateCardButton from './CreateCardButton';
 
 export default function Navbar() {
-  const [isNewCardModalOpen, setIsNewCardModalOpen] = useState<boolean>(false);
-
   return (
     <nav className='bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600'>
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
@@ -24,14 +24,8 @@ export default function Navbar() {
         </Link>
         <div className='flex md:order-2 gap-5 items-center'>
           <SignedIn>
-            <button
-              onClick={() => setIsNewCardModalOpen(true)}
-              type='button'
-              className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-            >
-              +
-            </button>
             <UserButton />
+            <CreateCardButton />
           </SignedIn>
           <SignedOut>
             <SignInButton mode='modal' />
@@ -61,15 +55,6 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-      {isNewCardModalOpen && (
-        <Modal
-          header='Create a new task card'
-          submitText='Create card'
-          onClose={() => setIsNewCardModalOpen(false)}
-        >
-          <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="New card name..." required />
-        </Modal>
-      )}
     </nav>
   );
 }

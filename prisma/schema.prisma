@@ -1,0 +1,27 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id          String     @id @default(cuid())
+  title       String
+  clerkUserId String?
+  items       CardItem[]
+  createdAt   DateTime   @default(now()) @map(name: "created_at")
+  updatedAt   DateTime   @updatedAt @map(name: "updated_at")
+}
+
+model CardItem {
+  id        String   @id @default(cuid())
+  text      String
+  card      Card?    @relation(fields: [cardId], references: [id])
+  cardId    String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
