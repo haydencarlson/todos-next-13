@@ -1,12 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  SignInButton,
-  UserButton,
-  SignedIn,
-  SignedOut
-} from '@clerk/nextjs';
+import { SignInButton, UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import CreateCardButton from './CreateCardButton';
 
 export default function Navbar() {
@@ -15,6 +10,7 @@ export default function Navbar() {
       <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
         <Link href='/' className='flex items-center'>
           <Image
+            priority
             src='/todos-logo.png'
             alt='logo'
             width='25'
@@ -24,7 +20,7 @@ export default function Navbar() {
         </Link>
         <div className='flex md:order-2 gap-5 items-center'>
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl='/' />
             <CreateCardButton />
           </SignedIn>
           <SignedOut>
