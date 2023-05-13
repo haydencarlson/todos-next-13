@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaSpinner } from 'react-icons/fa';
-
+import { useTransition } from 'react';
 interface CreateCardItemProps {
   cardId: string;
 }
@@ -14,6 +14,7 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
   const [isTextAreaOpen, setIsTextAreaOpen] = useState<boolean>(false);
   const [newTaskValue, setNewTaskValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [_, startTransition] = useTransition();
 
   const handleCreateTaskClick = async () => {
     setIsLoading(true);
@@ -24,10 +25,12 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
         text: newTaskValue,
       }),
     });
-    router.refresh();
-    setIsLoading(false);
-    setIsTextAreaOpen(false);
-    setNewTaskValue('');
+    startTransition(() => {
+      router.refresh();
+      setIsLoading(false);
+      setIsTextAreaOpen(false);
+      setNewTaskValue('');
+    });
   };
 
   return (
@@ -50,7 +53,7 @@ function CreateCardItem({ cardId }: CreateCardItemProps) {
             onClick={handleCreateTaskClick}
             className='w-full flex justify-center items-center text-white bg-blue-700 mt-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
           >
-            {isLoading ? <FaSpinner className='animate-spin'/> : 'Create task'}
+            {isLoading ? <FaSpinner className='animate-spin' /> : 'Create task'}
           </button>
           <button
             onClick={() => setIsTextAreaOpen(false)}

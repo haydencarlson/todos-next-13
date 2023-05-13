@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import Modal from './Modal';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function CreateCardButton() {
   const router = useRouter();
-  
+
   const [isNewCardModalOpen, setIsNewCardModalOpen] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [_, startTransition] = useTransition();
 
   const createNewCard = async () => {
     setIsLoading(true);
@@ -20,9 +22,11 @@ export default function CreateCardButton() {
       },
       body: JSON.stringify({ title: newCardTitle }),
     });
-    router.refresh();
-    setIsLoading(false);
-    setIsNewCardModalOpen(false);
+    startTransition(() => {
+      router.refresh();
+      setIsLoading(false);
+      setIsNewCardModalOpen(false);
+    });
   };
 
   return (
