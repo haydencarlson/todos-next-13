@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { FaSpinner } from 'react-icons/fa';
-
+import { useTransition } from 'react';
 interface DeleteCardButtonProps {
   id: string;
 }
@@ -13,6 +13,7 @@ export default function DeleteCardButton({ id }: DeleteCardButtonProps) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [_, startTransition] = useTransition();
 
   const deleteCard = async () => {
     setIsLoading(true);
@@ -24,7 +25,9 @@ export default function DeleteCardButton({ id }: DeleteCardButtonProps) {
       body: JSON.stringify({ id }),
     });
     setIsLoading(false);
-    router.refresh();
+    startTransition(() => {
+      router.refresh();
+    });
   };
 
   return (
