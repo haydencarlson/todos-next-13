@@ -48,15 +48,15 @@ export default function EditCardItemButton({
       </button>
       {isModalOpen && (
         <Modal
-          header='Create a new task card'
-          submitText='Create card'
+          header='Edit your task'
+          submitText='Edit task'
           isLoading={isLoading}
           onClose={() => setIsModalOpen(false)}
           onSubmit={editCardItem}
         >
           <input
             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-            placeholder='New card name...'
+            placeholder='Edit your task...'
             onChange={(e) => setTextValue(e.target.value)}
             value={textValue}
             required
