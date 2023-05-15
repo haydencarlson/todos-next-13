@@ -6,6 +6,11 @@ import CreateCardItem from './CreateCardItem';
 
 const getCardItems = async (cardId: string) => {
   const cardItems = await prisma.cardItem.findMany({
+    orderBy: [
+      {
+        id: 'desc',
+      },
+    ],
     where: {
       cardId,
     },
@@ -30,13 +35,10 @@ export default async function Card(props: CardProps) {
       </div>
       <ul className='py-3'>
         {items.map((item) => (
-          <CardItem
-            key={item.id}
-            {...item}
-          />
+          <CardItem key={item.id} {...item} />
         ))}
       </ul>
-      <CreateCardItem cardId={id}/>
+      <CreateCardItem cardId={id} />
     </div>
   );
 }
