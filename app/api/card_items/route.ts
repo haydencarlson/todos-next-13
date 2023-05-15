@@ -21,6 +21,25 @@ export async function POST(request: Request) {
   return NextResponse.json({ card });
 }
 
+export async function PATCH(request: Request) {
+  const { id, text } = await request.json();
+
+  if (!id || !text) {
+    return NextResponse.json({
+      body: 'cardId and text are required',
+    }, {
+      status: 400
+    });
+  }
+
+  const cardItem = await prisma.cardItem.update({
+    where: { id },
+    data: { text }
+  });
+
+  return NextResponse.json({ cardItem  });
+}
+
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');

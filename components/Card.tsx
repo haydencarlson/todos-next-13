@@ -4,11 +4,6 @@ import CardItem from './CardItem';
 import DeleteCardButton from './DeleteCardButton';
 import CreateCardItem from './CreateCardItem';
 
-interface CardProps {
-  id: string;
-  title: string;
-}
-
 const getCardItems = async (cardId: string) => {
   const cardItems = await prisma.cardItem.findMany({
     where: {
@@ -17,6 +12,11 @@ const getCardItems = async (cardId: string) => {
   });
   return cardItems;
 };
+
+interface CardProps {
+  id: string;
+  title: string;
+}
 
 export default async function Card(props: CardProps) {
   const { id, title } = props;
