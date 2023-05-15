@@ -22,10 +22,6 @@ export default function DeleteCardItemButton({
     setIsLoading(true);
     await fetch(`/api/card_items?id=${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id }),
     });
     startTransition(() => {
       setIsLoading(false);
