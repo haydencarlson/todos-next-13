@@ -17,9 +17,9 @@ export default async function Home() {
   const cards = await getCards(userId);
 
   return (
-    <main className='flex items-start justify-center gap-10 p-24'>
+    <main className='flex flex-col lg:flex-row items-start justify-center gap-10 px-6 pt-24 lg:p-24'>
       {cards.map((card) => (
-        <div key={card.id}>
+        <div className='w-full lg:w-auto' key={card.id}>
           {/* @ts-expect-error Async Server Component */}
           <Card {...card} />
         </div>
