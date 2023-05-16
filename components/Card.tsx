@@ -28,7 +28,7 @@ export default async function Card(props: CardProps) {
   const items = await getCardItems(id);
 
   return (
-    <div className='flex flex-col bg-slate-300 p-5 rounded-md w-[350px]'>
+    <div className='flex flex-col bg-slate-300 p-5 rounded-md w-full lg:w-[350px]'>
       <div className='flex items-center justify-between font-semibold'>
         {title}
         <DeleteCardButton id={id} />
