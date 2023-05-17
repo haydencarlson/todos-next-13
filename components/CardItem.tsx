@@ -14,7 +14,7 @@ export default function CardItem(props: CardItemProps) {
     <>
       <li
         key={text}
-        className='group flex items-center justify-between py-1 hover:rounded-md hover:bg-slate-200 pl-1 pr-1'
+        className='group flex items-center justify-between rounded-md bg-slate-200 p-4'
       >
         <div>{text}</div>
         <div className='flex gap-3'>
